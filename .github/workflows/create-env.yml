@@ -8,7 +8,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Create .env file
-        run: echo "DB_HOSTNAME=$DB_HOSTNAME" >> .env
+        run: |
+          cd src/main/resources
+          echo "DB_HOSTNAME=$DB_HOSTNAME" >> .env
           echo "DB_PORT=$DB_PORT" >> .env
           echo "DB_NAME=$DB_NAME" >> .env
           echo "DB_USERNAME=$DB_USERNAME" >> .env
@@ -20,7 +22,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Create .env file
-        run: echo "DB_HOSTNAME=$DB_HOSTNAME
+        run: |
+          cd src/main/resources
+          echo "DB_HOSTNAME=$DB_HOSTNAME
           DB_PORT=$DB_PORT
           DB_NAME=$DB_NAME
           DB_USERNAME=$DB_USERNAME
