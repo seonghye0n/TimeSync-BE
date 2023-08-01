@@ -16,3 +16,10 @@ logging:
   level:
     com.example.miniproject: DEBUG
     org.hibernate.type: TRACE
+
+AES:
+  secretKey: ${{AES_KEY}}
+
+jwt:
+  issuer: ${{JWT_ISSUER}}
+  secret_key: ${{JWT_KEY}}

@@ -1,0 +1,25 @@
+jobs:
+  build-on-mac:
+    runs-on: macos-latest
+    steps:
+      - name: Create .env file
+        run: echo "DB_HOSTNAME=$DB_HOSTNAME" >> .env
+          echo "DB_PORT=$DB_PORT" >> .env
+          echo "DB_NAME=$DB_NAME" >> .env
+          echo "DB_USERNAME=$DB_USERNAME" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "AES_KEY=$AES_KEY" >> .env
+          echo "JWT_ISSUER=$JWT_ISSUER" >> .env
+          echo "JWT_KEY=$JWT_KEY" >> .env
+  build-on-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Create .env file
+        run: echo "DB_HOSTNAME=$DB_HOSTNAME" >> .env
+          echo "DB_PORT=$DB_PORT" >> .env
+          echo "DB_NAME=$DB_NAME" >> .env
+          echo "DB_USERNAME=$DB_USERNAME" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "AES_KEY=$AES_KEY" >> .env
+          echo "JWT_ISSUER=$JWT_ISSUER" >> .env
+          echo "JWT_KEY=$JWT_KEY" >> .env
