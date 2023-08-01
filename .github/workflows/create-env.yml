@@ -1,3 +1,7 @@
+push:
+  branches:
+    - "*"
+
 jobs:
   build-on-mac:
     runs-on: macos-latest
