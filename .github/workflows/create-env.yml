@@ -1,6 +1,7 @@
-push:
-  branches:
-    - "*"
+on:
+  push:
+    branches:
+      - *
 
 jobs:
   build-on-mac:
