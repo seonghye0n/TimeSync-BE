@@ -1,5 +1,6 @@
 package com.example.miniproject.admin.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.example.miniproject.exception.AnnualException;
 import com.example.miniproject.exception.MemberException;
 import com.example.miniproject.member.domain.Member;
 import com.example.miniproject.member.repository.MemberRepository;
+import com.example.miniproject.util.DateUtil;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -45,16 +47,21 @@ public class AdminService {
 
 		annualPs.setStatus(Status.COMPLETE);
 
-		updateAnnualAmount(annualPs.getMember().getEmail());
+		LocalDateTime startLocalDate = annualPs.getStartedAt().atStartOfDay();
+		LocalDateTime endLocalDate = annualPs.getLastedAt().atStartOfDay();
+
+		int annualDays = DateUtil.getDateDiff(startLocalDate, endLocalDate);
+
+		updateAnnualAmount(annualPs.getMember().getEmail(), annualDays);
 
 		return true;
 	}
 
-	private void updateAnnualAmount(String email) {
+	private void updateAnnualAmount(String email, int annualDays) {
 		Member member = memberRepository.findByEmail(email)
 			.orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
 
-		member.sumAnnualRemain(-1);
-		member.sumAnnualUsed(1);
+		member.sumAnnualRemain(annualDays * -1);
+		member.sumAnnualUsed(annualDays);
 	}
 }
