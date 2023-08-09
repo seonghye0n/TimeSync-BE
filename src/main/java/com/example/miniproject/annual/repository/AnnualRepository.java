@@ -17,6 +17,6 @@ public interface AnnualRepository extends JpaRepository<Annual, Long> {
 	List<Annual> findAllByStatus(Status status);
 
 	@Query("SELECT count(a) FROM Annual a "
-		+ "  WHERE ((a.startedAt < :endDate AND a.lastedAt > :startDate) OR (a.startedAt = :startDate and a.lastedAt = :endDate)) AND a.member = :member AND a.status = :status")
+		+ "  WHERE ((a.startedAt < :endDate AND a.lastedAt > :startDate) OR (a.startedAt = :startDate and a.lastedAt = :endDate)) AND a.member = :member")
 	int countByStartedAtAndLastedAt(LocalDate startDate, LocalDate endDate, Member member, Status status);
 }
