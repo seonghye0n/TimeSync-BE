@@ -1,6 +1,5 @@
 package com.example.miniproject.annual.service;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +20,7 @@ import com.example.miniproject.exception.AnnualException;
 import com.example.miniproject.exception.MemberException;
 import com.example.miniproject.member.domain.Member;
 import com.example.miniproject.member.repository.MemberRepository;
+import com.example.miniproject.util.DateUtil;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +47,13 @@ public class AnnualService {
 		Member member = memberRepository.findByEmail(email)
 			.orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
 
-		if (isNotRemainAnnualAmount(saveDto.getStartDate(), saveDto.getEndDate(), member.getAnnualRemain()))
-			throw new AnnualException(ErrorCode.ANNUAL_NOT_BALANCED_AMOUNT);
-
 		if (isExistAnnual(saveDto.getStartDate(), saveDto.getEndDate(), member, Status.COMPLETE))
 			throw new AnnualException(ErrorCode.ANNUAL_DATE_DUPLICATED);
+
+		if (saveDto.getCategory().equals(Category.ANNUAL.getName())) {
+			if (isNotRemainAnnualAmount(saveDto.getStartDate(), saveDto.getEndDate(), member.getAnnualRemain()))
+				throw new AnnualException(ErrorCode.ANNUAL_NOT_BALANCED_AMOUNT);
+		}
 
 		Annual annual = saveDto.toEntity(member);
 
@@ -88,6 +90,15 @@ public class AnnualService {
 
 		if (annual.getMember().isNotEqualsEmail(email))
 			throw new MemberException(ErrorCode.MEMBER_NOT_MATCHED);
+
+		if (annual.getCategory().equals(Category.ANNUAL.getName())) {
+			if (isNotRemainAnnualAmount(updateDto.getStartDate(), updateDto.getEndDate(),
+				annual.getMember().getAnnualRemain()))
+				throw new AnnualException(ErrorCode.ANNUAL_NOT_BALANCED_AMOUNT);
+		}
+
+		if (isExistAnnual(updateDto.getStartDate(), updateDto.getEndDate(), annual.getMember(), Status.COMPLETE))
+			throw new AnnualException(ErrorCode.ANNUAL_DATE_DUPLICATED);
 
 		annual.updateData(updateDto);
 	}
@@ -144,7 +155,7 @@ public class AnnualService {
 		LocalDateTime startLocalDate = LocalDate.parse(startDate).atStartOfDay();
 		LocalDateTime endLocalDate = LocalDate.parse(endDate).atStartOfDay();
 
-		int betweenDays = (int)Duration.between(startLocalDate, endLocalDate).toDays();
+		int betweenDays = DateUtil.getDateDiff(startLocalDate, endLocalDate);
 
 		return annualRemain - betweenDays < 0;
 	}
