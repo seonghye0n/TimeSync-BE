@@ -146,7 +146,7 @@ public class AnnualService {
 		LocalDate startLocalDate = LocalDate.parse(startDate);
 		LocalDate endLocalDate = LocalDate.parse(endDate);
 
-		int count = annualRepository.countByStartedAtAndLastedAt(startLocalDate, endLocalDate, member);
+		Long count = annualRepository.countByStartedAtAndLastedAt(startLocalDate, endLocalDate, member);
 
 		return count > 0;
 	}
