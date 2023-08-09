@@ -40,19 +40,17 @@ public class AdminService {
 
 	@Transactional
 	public boolean updateStatus(AdminRequestDto.ApplyDto applyDto, String email) {
-		Annual annualPs = entityManager.find(Annual.class, applyDto.getId());
+		Annual annual = annualRepository.findById(applyDto.getId())
+			.orElseThrow(() -> new AnnualException(ErrorCode.ANNUAL_NOT_FOUND));
 
-		if (annualPs == null)
-			throw new AnnualException(ErrorCode.ANNUAL_NOT_FOUND);
+		annual.setStatus(Status.COMPLETE);
 
-		annualPs.setStatus(Status.COMPLETE);
-
-		LocalDateTime startLocalDate = annualPs.getStartedAt().atStartOfDay();
-		LocalDateTime endLocalDate = annualPs.getLastedAt().atStartOfDay();
+		LocalDateTime startLocalDate = annual.getStartedAt().atStartOfDay();
+		LocalDateTime endLocalDate = annual.getLastedAt().atStartOfDay();
 
 		int annualDays = DateUtil.getDateDiff(startLocalDate, endLocalDate);
 
-		updateAnnualAmount(annualPs.getMember().getEmail(), annualDays);
+		updateAnnualAmount(annual.getMember().getEmail(), annualDays);
 
 		return true;
 	}
