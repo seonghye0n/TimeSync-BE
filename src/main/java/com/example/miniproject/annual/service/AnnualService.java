@@ -47,7 +47,7 @@ public class AnnualService {
 		Member member = memberRepository.findByEmail(email)
 			.orElseThrow(() -> new MemberException(ErrorCode.MEMBER_NOT_FOUND));
 
-		if (isExistAnnual(saveDto.getStartDate(), saveDto.getEndDate(), member, Status.COMPLETE))
+		if (isExistAnnual(saveDto.getStartDate(), saveDto.getEndDate(), member))
 			throw new AnnualException(ErrorCode.ANNUAL_DATE_DUPLICATED);
 
 		if (saveDto.getCategory().equals(Category.ANNUAL.getName())) {
@@ -97,7 +97,7 @@ public class AnnualService {
 				throw new AnnualException(ErrorCode.ANNUAL_NOT_BALANCED_AMOUNT);
 		}
 
-		if (isExistAnnual(updateDto.getStartDate(), updateDto.getEndDate(), annual.getMember(), Status.COMPLETE))
+		if (isExistAnnual(updateDto.getStartDate(), updateDto.getEndDate(), annual.getMember()))
 			throw new AnnualException(ErrorCode.ANNUAL_DATE_DUPLICATED);
 
 		annual.updateData(updateDto);
@@ -142,11 +142,11 @@ public class AnnualService {
 		return annuals;
 	}
 
-	private boolean isExistAnnual(String startDate, String endDate, Member member, Status status) {
+	private boolean isExistAnnual(String startDate, String endDate, Member member) {
 		LocalDate startLocalDate = LocalDate.parse(startDate);
 		LocalDate endLocalDate = LocalDate.parse(endDate);
 
-		int count = annualRepository.countByStartedAtAndLastedAt(startLocalDate, endLocalDate, member, status);
+		int count = annualRepository.countByStartedAtAndLastedAt(startLocalDate, endLocalDate, member);
 
 		return count > 0;
 	}
