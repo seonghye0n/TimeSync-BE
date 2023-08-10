@@ -2,8 +2,7 @@ name: miniproject CD
 
 on:
   push:
-    branched:
-      - main
+    branches: [ develop ]
     
 jobs:
   build:
