@@ -85,9 +85,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			// redis 에 accessToken logout 여부 확인
 			String isLogout = (String)redisTemplate.opsForValue().get(accessToken);
 
-			if (isLogout.equals("logout"))
-				throw new TokenException(ErrorCode.MEMBER_IS_LOGOUT);
-
 			// isLogout 이 비어 있는 경우에는 정상적으로 처리하기
 			if (ObjectUtils.isEmpty(isLogout)) {
 				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -97,7 +94,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				);
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-			}
+			}else if(isLogout.equals("logout"))
+				throw new TokenException(ErrorCode.MEMBER_IS_LOGOUT);
 		}
 
 		filterChain.doFilter(request, response);
