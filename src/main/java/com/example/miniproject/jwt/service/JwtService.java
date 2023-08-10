@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.miniproject.constant.ErrorCode;
+import com.example.miniproject.exception.TokenException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -52,14 +54,6 @@ public class JwtService {
 		return extractAllClaim(token).getSubject();
 	}
 
-	public String extractRefreshTokenUsername(String token) {
-		try {
-			return JWT.decode(token).getSubject();
-		} catch (JWTDecodeException e) {
-			return null;
-		}
-	}
-
 	// 토큰 만료 일자 체크
 	public boolean extractExpiredCheck(String token) {
 		Date expiresAt = JWT.decode(token).getExpiresAt();
@@ -70,32 +64,9 @@ public class JwtService {
 		return extractAllClaim(token).getSubject().equals(email);
 	}
 
-	// JWT 유효성 검증
-	//    public boolean validToken(String token, UserDetails userDetails) {
-	//        String username = extractUsername(token);
-	//        if(username.equals(null)) {
-	//            return false;
-	//        }
-	//        return (username.equals(userDetails.getUsername()) && !checkTokenExpiration(token));
-	//    }
-
-	// JWT 만료일자 체크
-	public boolean checkTokenExpiration(String token) {
-		return extractExpiration(token).before(new Date());
-	}
-
 	// JWT 에서 만료일자 추출
 	public Date extractExpiration(String token) {
 		return extractAllClaim(token).getExpiresAt();
-	}
-
-	// refreshToken 검증
-	public DecodedJWT extractRefreshToken(String refreshToken) {
-		try {
-			return JWT.decode(refreshToken);
-		} catch (JWTDecodeException e) {
-			return null;
-		}
 	}
 
 	// JWT 에서 모든 Claim 추출
@@ -106,6 +77,8 @@ public class JwtService {
 				.verify(token);
 		} catch (TokenExpiredException e) {
 			return null;
+		} catch (JWTDecodeException e) {
+			throw new TokenException(ErrorCode.TOKEN_INVALID);
 		}
 	}
 
