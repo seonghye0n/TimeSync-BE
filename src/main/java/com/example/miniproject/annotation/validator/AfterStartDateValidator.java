@@ -22,12 +22,8 @@ public class AfterStartDateValidator implements ConstraintValidator<AfterStartDa
 				return false;
 
 			return endDate.isAfter(startDate) || endDate.isEqual(startDate);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException(e);
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+			return false;
 		}
 	}
 
