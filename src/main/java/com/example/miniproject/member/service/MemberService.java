@@ -76,8 +76,8 @@ public class MemberService {
             throw new MemberException(ErrorCode.MEMBER_PASSWORD_NOT_MATCH);
         }
 
-        // accessToken 유효기간 5분으로 설정 테스트용도
-        String accessToken = jwtService.generateToken(Duration.ofMinutes(5), member.getEmail());
+        // accessToken 유효기간 1시간으로 설정
+        String accessToken = jwtService.generateToken(Duration.ofHours(1), member.getEmail());
 
         // refreshToken 유효기간 1일 설정
         String refreshTokenId = UUID.randomUUID().toString();
