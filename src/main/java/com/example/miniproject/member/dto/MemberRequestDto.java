@@ -2,6 +2,7 @@ package com.example.miniproject.member.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.miniproject.constant.Role;
@@ -21,19 +22,19 @@ public class MemberRequestDto {
 	@Builder
 	public static class CreateMember {
 
-		@NotNull(message = "이름이 비어있을 수 없습니다.")
+		@NotBlank(message = "이름은 비워둘 수 없습니다.")
 		private String name;
 
-		@NotNull(message = "이메일은 비어있을 수 없습니다.")
+		@NotBlank(message = "이메일은 비워둘 수 없습니다.")
 		@Email(message = "이메일 형식이 맞지 않습니다.")
 		private String email;
 
-		@NotNull(message = "패스워드는 비어있을 수 없습니다.")
+		@NotBlank(message = "패스워드는 비워둘 수 없습니다.")
 		@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$"
-			, message = "비밀번호는 8글자 ~ 16글자 로 대소문자 1개, 숫자 1개, 특수문자 1개 이상으로 조합해야 합니다.")
+			, message = "비밀번호는 8글자 ~ 16글자 에 대소문자 1개, 숫자 1개, 특수문자 1개 이상으로 조합해야 합니다.")
 		private String password;
 
-		@NotNull(message = "입사 날짜는 비어있을 수 없습니다.")
+		@NotNull(message = "입사날짜는 비워둘 수 없습니다.")
 		@DateTimeFormat(pattern = "yyyy-MM-dd")
 		private LocalDate join;
 
@@ -58,11 +59,11 @@ public class MemberRequestDto {
 	@Builder
 	public static class LoginMember {
 
-		@NotNull
+		@NotBlank(message = "이메일은 비워둘 수 없습니다.")
 		@Email(message = "이메일 형식이 맞지 않습니다.")
 		private String email;
 
-		@NotNull
+		@NotBlank(message = "패스워드는 비워둘 수 없습니다.")
 		@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$"
 			, message = "비밀번호는 8글자 ~ 16글자 로 대소문자 1개, 숫자 1개, 특수문자 1개 이상으로 조합해야 합니다.")
 		private String password;
