@@ -17,7 +17,7 @@ public class CorsConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOriginPattern("*");
+		config.addAllowedOriginPattern("https://hmteresting.netlify.app");
 		config.addAllowedMethod("*");
 		config.addExposedHeader(HttpHeaders.SET_COOKIE);
 
