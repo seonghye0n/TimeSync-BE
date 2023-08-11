@@ -54,7 +54,7 @@ public class MemberController {
                 .path("/")
                 .maxAge(60 * 60 * 24)
                 .sameSite("None")
-                .domain("https://hmteresting.netlify.app")
+                .domain("localhost")
                 .build();
 
         return ResponseEntity.ok()
