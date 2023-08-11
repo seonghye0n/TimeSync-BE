@@ -7,8 +7,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.Arrays;
-
 @Configuration
 public class CorsConfig {
 
@@ -17,7 +15,7 @@ public class CorsConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOriginPattern("https://hmteresting.netlify.app");
+		config.addAllowedOriginPattern("hmteresting.netlify.app");
 		config.addAllowedMethod("*");
 		config.addExposedHeader(HttpHeaders.SET_COOKIE);
 
