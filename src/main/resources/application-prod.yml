@@ -23,7 +23,7 @@ spring:
 
 logging:
   level:
-    com.example.miniproject: INFO
+    com.example.miniproject: DEBUG
 
 AES:
   secretKey: ${AES.SECRET}
