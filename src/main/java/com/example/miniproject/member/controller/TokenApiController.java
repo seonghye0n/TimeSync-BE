@@ -34,7 +34,7 @@ public class TokenApiController {
                 .path("/")
                 .maxAge(60 * 60 * 24)
                 .sameSite("None")
-                .domain("localhost")
+                .domain("https://hmteresting.netlify.app")
                 .build();
 
         return ResponseEntity.ok()
