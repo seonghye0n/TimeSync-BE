@@ -176,6 +176,9 @@ create table login_log (
 | `/api/user`     | GET   | -  | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | ![image](https://github.com/seonghye0n/miniproject/assets/35757620/2f97ee06-c667-4ee8-8a8e-f04df02e47ff) |
 | `/api/user`     | POST   | `{“newPassword” : “새로운 비밀번호” }`  | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | `상태값 200 ok, 메시지` |
 | `/api/annual/cancel`     | POST   | {“id” : annul 번호} | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | `상태값 200. 메시지` |
+| `/api/annual/update`     | POST   | {“id” : 1, “title” : “연차 수정합니다~~”, “startDate” : “2023-08-01”, “endDate” : “2023-08-04”,“reason” : “병가”} | `Authorization: Bearer your_access_token`, `Cookie: refreshToken | `상태값 200 ok 메시지` |
+| `/api/admin`     | GET   | -  | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | ![image](https://github.com/seonghye0n/miniproject/assets/35757620/69352c1e-6c42-48f1-b413-01909345a239) |
+| `/api/admin/apply`     | POST   | { “id” : 1 } | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | `상태값 200 ok, 메시지` |
 
 ## 🛠️ 기술 설명
 
@@ -193,7 +196,3 @@ Spring Security를 통해 강력한 보안 기능을 구현하였으며, JWT(JSO
 
 ### GitHub Actions를 통한 자동 배포
 프로젝트의 소스 코드는 GitHub Actions를 활용하여 자동으로 테스트 및 배포되며, 개발자들의 작업 흐름을 자동화하고 효율성을 높였습니다.
-
-| `/api/annual/update`     | POST   | {“id” : 1, “title” : “연차 수정합니다~~”, “startDate” : “2023-08-01”, “endDate” : “2023-08-04”,“reason” : “병가”} | `Authorization: Bearer your_access_token`, `Cookie: refreshToken | `상태값 200 ok 메시지` |
-| `/api/admin`     | GET   | -  | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | ![image](https://github.com/seonghye0n/miniproject/assets/35757620/69352c1e-6c42-48f1-b413-01909345a239) |
-| `/api/admin/apply`     | POST   | { “id” : 1 } | `Authorization: Bearer your_access_token`, `Cookie: refreshToken` | `상태값 200 ok, 메시지` |
