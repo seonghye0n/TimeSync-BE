@@ -102,6 +102,7 @@
 ## ⚙️ 설치 및 실행 방법
 
 프로젝트 링크 : https://hmteresting.netlify.app/
+
 관리자 계정 : admin@admin.com / fastcampus12#$
 
 ## 📑 DB 설계
