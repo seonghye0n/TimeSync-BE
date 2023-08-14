@@ -102,66 +102,81 @@
 ## ⚙️ 설치 및 실행 방법
 
 프로젝트 링크 : https://hmteresting.netlify.app/
+관리자 계정 : admin@admin.com / fastcampus12#$
 
 ## 📑 DB 설계
 
-### Member
+### ERD
+![ERD](https://github.com/seonghye0n/miniproject/assets/53041717/6a3d9cdd-28e7-45e2-92fa-aba6c7164fd2)
+
+
+### member
 ```sql
 create table member (
-        annual_remain integer not null,
-        annual_used integer not null,
-        annual_amount_id bigint,
-        created_at datetime(6),
-        id bigint not null auto_increment,
-        joined_at datetime(6) not null,
-        modified_at datetime(6),
-        email varchar(255),
-        name varchar(255),
-        password varchar(255),
-        position varchar(255),
-        role enum ('ADMIN','USER'),
-        primary key (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	  id bigint primary key auto_increment,
+    email varchar(100) unique not null,
+    password varchar(100) not null,
+    name varchar(100) not null,
+	  joined_at date not null,
+    role varchar(10) not null,
+    annual_amount_id bigint not null,
+    annual_used int,
+    annual_remain int,
+    position varchar(5) not null,
+    loggedin_at timestamp,
+    created_at timestamp not null,
+    modified_at timestamp,
+    foreign key(annual_amount_id) references annual(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 ### req
 ```sql
 create table reg (
-        lasted_at date not null,
-        started_at date not null,
-        created_at datetime(6) not null,
-        id bigint not null auto_increment,
-        member_id bigint,
-        modified_at datetime(6),
-        category enum ('ANNUAL','DUTY') not null,
-        reason enum ('ANNUAL','CONDOLENCE','MATERNITY','OTHER','SICK'),
-        status enum ('COMPLETE','READY') not null,
-        title varchar(255),
-        primary key (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	  id bigint primary key auto_increment,
+    category varchar(10) not null,
+    title varchar(40) not null,
+    started_at date not null,
+    lasted_at date not null,
+    reason varchar(20),
+    status varchar(10) not null,
+    member_id bigint,
+    created_at timestamp not null,
+    modified_at timestamp,
+    foreign key (member_id) references member(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-### Annual
+### annual
 ```sql
 create table annual (
-        annual_amount integer not null,
-        years integer not null,
-        id bigint not null auto_increment,
-        hist_year varchar(255),
-        position varchar(255),
-        primary key (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	  id bigint primary key auto_increment,
+    years int not null,
+    annual_amount int not null,
+    position varchar(5) not null,
+    hist_year varchar(4) not null,
+    unique (years, position, hist_year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
 ### login_log
 ```sql
 create table login_log (
+	  id bigint primary key auto_increment,
+    user_agent varchar(200) not null,
+    client_ip varchar(15) not null,
+    member_id bigint not null,
+    success_login_date timestamp,
+    foreign key(member_id) references member(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+### refresh_token
+```sql
+create table refresh_token (
         id bigint not null auto_increment,
-        member_id bigint,
-        success_login_date datetime(6),
-        client_ip varchar(255) not null,
-        user_agent varchar(255) not null,
+        email varchar(255) not null,
+        refresh_token varchar(255) not null,
         primary key (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ) engine=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
 ## 📄 API 문서
