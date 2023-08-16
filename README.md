@@ -7,12 +7,11 @@
 - [팀원 소개](#-팀원-소개)
 - [기술 스택](#-기술-스택)
 - [기술 아키텍처](#-기술-아키텍처)
-- [프로젝트 세부 사항](#-프로젝트-세부-사항)
-- [설치 및 실행 방법](#-설치-및-실행-방법)
+- [프로젝트 세부 사항](#-프로젝트-세부사항)
+- [설치 및 실행 방법](#-설치-및-실행방법)
 - [DB 설계](#-DB-설계)
 - [API 문서](#-API-문서)
 - [기술 설명](#-기술-설명)
--
 
 ## 🌟 프로젝트 개요
 
@@ -55,7 +54,7 @@
 
 ![image](https://github.com/seonghye0n/miniproject/assets/35757620/fe3cdfa9-b374-4645-aed9-7c2af8235ed9)
 
-## 📝 프로젝트 세부 사항
+## 📝 프로젝트 세부사항
 
 - ### 📅 연차 및 당직 관리 시스템 개발
   ![연차, 당직 관리 시스템](https://github.com/seonghye0n/miniproject/assets/35757620/4417377f-cc9c-4d24-afd8-f100e2242c9e)
@@ -65,7 +64,7 @@
   프론트엔드 프로젝트
   링크 : https://github.com/FastCampusGroupFE9/MiniProject_KDT9
 
-## ⚙️ 설치 및 실행 방법
+## ⚙️ 설치 및 실행방법
 
 프로젝트 링크 : https://hmteresting.netlify.app/
 
@@ -185,9 +184,9 @@ create table refresh_token
 
 프로젝트는 Amazon EC2 인스턴스를 활용하여 테스트 서버와 운영 서버를 구성하였습니다. 데이터베이스는 Amazon RDS를 이용하여 관리되며, 안정적인 데이터 저장 및 관리가 가능합니다.
 
-### Redis 캐싱
+### Redis 로 RefreshToekn 관리
 
-Redis를 사용하여 캐싱 기능을 구현하였습니다. 캐시를 활용하여 데이터의 빠른 조회와 처리를 가능케 하였습니다.
+Redis를 사용하여 RefreshToken 을 구현하였다. 토큰의 만료기간을 Redsi 의 유효기간으로 설정하여 토큰을 좀 더 안전하게 관리하고 삭제하는 것이 가능합니다.
 
 ### Spring Security 및 JWT 인증
 
