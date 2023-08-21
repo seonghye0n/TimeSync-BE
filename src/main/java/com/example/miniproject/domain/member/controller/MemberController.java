@@ -4,12 +4,15 @@ import java.util.Map;
 
 import com.example.miniproject.domain.member.dto.MemberRequestDto;
 import com.example.miniproject.domain.member.dto.MemberResponseDto;
+
+import org.apache.coyote.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,6 +84,11 @@ public class MemberController {
 				.status(HttpStatus.OK.value())
 				.message("로그아웃에 성공하였습니다.")
 				.build());
+	}
+
+	@GetMapping("/healthcheck")
+	public ResponseEntity<?> healthCheck() {
+		return ResponseEntity.ok().build();
 	}
 
 }
