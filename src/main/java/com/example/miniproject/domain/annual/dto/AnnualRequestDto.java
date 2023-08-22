@@ -20,13 +20,13 @@ public class AnnualRequestDto {
     @Setter
     @AfterStartDate
     public static class SaveDto {
-        @NotBlank
+        @NotBlank(message = "제목은 비워둘 수 없습니다.")
         private String title;
-        @NotBlank
+        @NotBlank(message = "연차/당직 구분은 비워둘 수 없습니다.")
         private String category;
-        @NotBlank
+        @NotBlank(message = "시작일을 비워둘 수 없습니다.")
         private String startDate;
-        @NotBlank
+        @NotBlank(message = "종료일을 비워둘 수 없습니다.")
         private String endDate;
         private String reason;
 
