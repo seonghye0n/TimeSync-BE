@@ -195,3 +195,34 @@ Spring Security를 통해 강력한 보안 기능을 구현하였으며, JWT(JSO
 ### GitHub Actions를 통한 자동 배포
 
 프로젝트의 소스 코드는 GitHub Actions를 활용하여 자동으로 테스트 및 배포되며, 개발자들의 작업 흐름을 자동화하고 효율성을 높였습니다.
+
+---
+
+## 👨‍🏫 코드리뷰 요청
+
+### <img width="15" alt="star1" src="https://user-images.githubusercontent.com/78655692/151471925-e5f35751-d4b9-416b-b41d-a059267a09e3.png"> 코드 리뷰 잘 부탁드립니다 !!
+
+`박성현`
+
+1. 여러 DTO에 공통된 필드들이 있는데 한번에 Validation 처리를 하는 방법이 있을까요? 어떤 키워드로 찾아봐야될지 잘 모르겠습니다..! 예를
+   들어서 [연차/당직 Request DTO](https://github.com/seonghye0n/miniproject/blob/33b38bec1f4b52ba97dc76585a7768d4269c9ace/src/main/java/com/example/miniproject/domain/annual/dto/AnnualRequestDto.java#L28)
+   에 SaveDto, UpdateDto 두 Dto에 공통된 필드들이 있는데 message를 일일이 입력하는게 번거롭다는 생각이 들었습니다!
+2. 코드 관련은 아니지만 궁금한게 있어서 질문드립니다. 첫 멘토링 때, 현업에서도 개인정보를 암호화한 값을 DB에 저장한다고 하셨는데 혹시 직접 쿼리로 조회하실 때는 암호화된 값을 어떻게 복호화하나요?? 예를
+   들어, 현재 이름이 암호화한 값으로 DB에 저장되고 있는데, 관리자가 급하게 특정 이름으로 회원목록을 뽑아달라고 요청하면 어떻게 조회할 수 있는지 궁금합니다.
+
+`서용현`
+
+1. **SecurityConfig filter**
+    - 정신없이 기능구현에만 집중하다가 보니 필터 하나의 너무 많은 기능을 추가한 것 같아서 현재 부분의 cookie 검증 부분이나, jwt 생성 부분을 다른 필터로 나누는 것은 어떨까 하는 생각입니다.
+
+2. **로그인 시 응답값 부분**
+    - 프론트 요구사항으로는 body 에 accessToken, role(회원의 권한) 을 담아서 보내주는 것이라서 다음과 같이 작성하였는데 role 부분도 jwt 에 subject 에 넣는 것이 더 좋은지
+      궁금합니다.
+
+3. **MemberRequestDto, GlobalExceptionHandler**
+    - validation 에러를 handler 처리를 하려고 작성하였는데 굳이 이거 하나 때문에 handler 처리하기에는 이상하다고 생각이 듭니다. 이런 상황에서는 handler 처리 하는 방법을 알고
+      싶습니다.
+
+4. **로그인/로그아웃 Controller, SecurityConfig**
+    - login, logout 을 security 에 filter로 구현하지 않고 MemberController 에 메서드 형태로 작성하였는데 이런 식의 코드 작성이 좋은지 filter 에 적용하는 것이 좋은지
+      궁금합니다.
