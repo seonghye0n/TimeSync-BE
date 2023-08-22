@@ -27,22 +27,22 @@ public class Annual {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
     private Category category;
 
-    @NotBlank
+    @Column(nullable = false, length = 40)
     private String title;
-    @NotNull
+    @Column(nullable = false)
     private LocalDate startedAt;
-    @NotNull
+    @Column(nullable = false)
     private LocalDate lastedAt;
 
     @Enumerated(EnumType.STRING)
     private Reason reason;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
