@@ -3,9 +3,12 @@ package com.example.miniproject.domain.annual.dto;
 import com.example.miniproject.domain.annual.domain.Annual;
 import com.example.miniproject.global.annotation.AfterStartDate;
 import com.example.miniproject.global.constant.Category;
+import com.example.miniproject.global.constant.ErrorCode;
 import com.example.miniproject.global.constant.Reason;
 import com.example.miniproject.global.constant.Status;
 import com.example.miniproject.domain.member.domain.Member;
+import com.example.miniproject.global.error.exception.AnnualException;
+import com.example.miniproject.global.util.DateUtil;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +17,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import org.springframework.cglib.core.Local;
 
 public class AnnualRequestDto {
     @Getter
@@ -34,8 +40,8 @@ public class AnnualRequestDto {
             return Annual.builder()
                     .title(this.title)
                     .category(Category.findByName(this.category))
-                    .startedAt(LocalDate.parse(this.startDate))
-                    .lastedAt(LocalDate.parse(this.endDate))
+                    .startedAt(DateUtil.parseLocalDate(this.startDate))
+                    .lastedAt(DateUtil.parseLocalDate(this.endDate))
                     .reason(Reason.findByName(this.reason))
                     .member(member)
                     .status(Status.READY)

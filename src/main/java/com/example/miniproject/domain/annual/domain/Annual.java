@@ -5,6 +5,8 @@ import com.example.miniproject.global.constant.Category;
 import com.example.miniproject.global.constant.Reason;
 import com.example.miniproject.global.constant.Status;
 import com.example.miniproject.domain.member.domain.Member;
+import com.example.miniproject.global.util.DateUtil;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -58,8 +60,8 @@ public class Annual {
 
     public void updateData(AnnualRequestDto.UpdateDto updateDto) {
         this.title = updateDto.getTitle();
-        this.startedAt = LocalDate.parse(updateDto.getStartDate());
-        this.lastedAt = LocalDate.parse(updateDto.getEndDate());
+        this.startedAt = DateUtil.parseLocalDate(updateDto.getStartDate());
+        this.lastedAt = DateUtil.parseLocalDate(updateDto.getEndDate());
         this.reason = Reason.findByName(updateDto.getReason());
     }
 }
