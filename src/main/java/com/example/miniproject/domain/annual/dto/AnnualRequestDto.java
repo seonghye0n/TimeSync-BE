@@ -6,7 +6,10 @@ import com.example.miniproject.global.constant.Category;
 import com.example.miniproject.global.constant.Reason;
 import com.example.miniproject.global.constant.Status;
 import com.example.miniproject.domain.member.domain.Member;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,13 +20,13 @@ public class AnnualRequestDto {
     @Setter
     @AfterStartDate
     public static class SaveDto {
-        @NotNull
+        @NotBlank
         private String title;
-        @NotNull
+        @NotBlank
         private String category;
-        @NotNull
+        @NotBlank
         private String startDate;
-        @NotNull
+        @NotBlank
         private String endDate;
         private String reason;
 
@@ -53,13 +56,12 @@ public class AnnualRequestDto {
     public static class UpdateDto {
         @NotNull
         private Long id;
-        @NotNull
+        @NotBlank
         private String title;
-        @NotNull
+        @NotBlank
         private String startDate;
-        @NotNull
+        @NotBlank
         private String endDate;
-        @NotNull
         private String reason;
     }
 
@@ -67,7 +69,9 @@ public class AnnualRequestDto {
     @Setter
     public static class UpdatePasswordDto {
 
-        @NotNull
+        @NotBlank(message = "패스워드는 비워둘 수 없습니다.")
+        @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$"
+            , message = "비밀번호는 8글자 ~ 16글자 로 대소문자 1개, 숫자 1개, 특수문자 1개 이상으로 조합해야 합니다.")
         private String newPassword;
 
     }
